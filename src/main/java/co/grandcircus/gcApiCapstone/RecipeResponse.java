@@ -1,7 +1,5 @@
 package co.grandcircus.gcApiCapstone;
 
-import java.util.List;
-
 public class RecipeResponse {
 	
 	private String q;

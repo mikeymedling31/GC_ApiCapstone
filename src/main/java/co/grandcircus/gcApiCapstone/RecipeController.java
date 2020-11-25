@@ -69,6 +69,8 @@ public class RecipeController {
 		return "index";
 	}
 	
+	
+	// SEARCHING
 	@PostMapping("/search/{q}")
 	public String searchByText(@PathVariable String q, Model model) {
 		List<Recipe> recipes = new ArrayList<>();//api service with api method for getting all recipes according to q;
@@ -110,6 +112,7 @@ public class RecipeController {
 		
 		return "redirect:/results";
 	}
+	// END OF SEARCHING
 	
 	@GetMapping("/details/{ id }")
 	public String detailsById(@PathVariable String id, Model model) {

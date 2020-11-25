@@ -14,6 +14,5 @@ public class Ingredients {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
-	
+
 }

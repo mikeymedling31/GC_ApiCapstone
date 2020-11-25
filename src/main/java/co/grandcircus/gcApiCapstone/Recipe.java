@@ -73,6 +73,6 @@ public class Recipe {
 	public void setIngredients(ArrayList<Ingredients> ingredients) {
 		this.ingredients = ingredients;
 	}
-	
+
 	
 }
