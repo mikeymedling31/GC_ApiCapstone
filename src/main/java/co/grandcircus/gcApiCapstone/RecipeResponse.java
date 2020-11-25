@@ -5,12 +5,12 @@ import java.util.List;
 public class RecipeResponse {
 	
 	private String q;
-	private List<Recipe> hits;
+	private List<OopsRecipe> hits;
 	
 	public RecipeResponse() {
 		
 	}
-	public RecipeResponse(String q, List<Recipe> hits) {
+	public RecipeResponse(String q, List<OopsRecipe> hits) {
 		super();
 		this.q = q;
 		this.hits = hits;
@@ -21,10 +21,10 @@ public class RecipeResponse {
 	public void setQ(String q) {
 		this.q = q;
 	}
-	public List<Recipe> getHits() {
+	public List<OopsRecipe> getHits() {
 		return hits;
 	}
-	public void setHits(List<Recipe> hits) {
+	public void setHits(List<OopsRecipe> hits) {
 		this.hits = hits;
 	}
 

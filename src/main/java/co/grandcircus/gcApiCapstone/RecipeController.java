@@ -9,12 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RecipeController {
-	
+	private List<Recipe> searchResults = new ArrayList<>();
 	private List<Recipe> favorites = new ArrayList<>();
 	
 	@Autowired
@@ -79,8 +78,15 @@ public class RecipeController {
 	@PostMapping("/search")
 	public String searchByText(@RequestParam String q, Model model) {
 		RecipeResponse response = service.getAllRecipes(q);
-		List<Recipe> recipes = response.getHits();
-				
+		List<OopsRecipe> oopsrecipes = response.getHits();
+		List<Recipe> recipes = new ArrayList<>();
+		
+		for(OopsRecipe oops : oopsrecipes) {
+			recipes.add(oops.getRecipe());
+		}
+		
+		searchResults.clear();
+		searchResults.addAll(recipes);
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", q);
 		
@@ -90,9 +96,15 @@ public class RecipeController {
 	@PostMapping("/search/diet")
 	public String searchBydiet(@RequestParam String diet, Model model) {
 		RecipeResponse response = service.getDiet(diet);
-		List<Recipe> recipes = response.getHits();
+		List<OopsRecipe> oopsrecipes = response.getHits();
+		List<Recipe> recipes = new ArrayList<>();
 		
+		for(OopsRecipe oops : oopsrecipes) {
+			recipes.add(oops.getRecipe());
+		}
 		
+		searchResults.clear();
+		searchResults.addAll(recipes);
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", diet);
 		
@@ -102,9 +114,15 @@ public class RecipeController {
 	@PostMapping("/search/health")
 	public String searchByhealth(@RequestParam String health, Model model) {
 		RecipeResponse response = service.getAllRecipes(health);
-		List<Recipe> recipes = response.getHits();
-
+		List<OopsRecipe> oopsrecipes = response.getHits();
+		List<Recipe> recipes = new ArrayList<>();
 		
+		for(OopsRecipe oops : oopsrecipes) {
+			recipes.add(oops.getRecipe());
+		}
+
+		searchResults.clear();
+		searchResults.addAll(recipes);
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", health);
 		
@@ -113,22 +131,44 @@ public class RecipeController {
 	
 	
 	
-	@GetMapping("/details/{ id }")
-	public String detailsById(@PathVariable String id, Model model) {
-		RecipeResponse response = service.getById(id);
-		List<Recipe> recipes = response.getHits();
+	@PostMapping("/details")
+	public String detailsById(@RequestParam String label, Model model) {
+		String id = "";
+		for(int i = 0; i<searchResults.size(); i++) {
+			if(label.compareTo(searchResults.get(i).getLabel())==0) {
+				id = searchResults.get(i).getUri();
+			}
+		}
 		
-		Recipe recipe = recipes.get(0);
+		RecipeResponse response = service.getById(id);
+		List<OopsRecipe> oopsrecipes = response.getHits();
+		Recipe recipe = new Recipe();
+		
+		for(OopsRecipe oops : oopsrecipes) {
+			recipe = oops.getRecipe();
+		}
 		
 		model.addAttribute("recipe",recipe);
 		
 		return "details";
 	}
 	
-	@PostMapping("/addfavorite/{ id }")
-	public String addToFavorites(@PathVariable String id, Model model) {
+	@PostMapping("/addfavorite")
+	public String addToFavorites(@RequestParam String label, Model model) {
+		String id = "";
+		for(int i = 0; i<searchResults.size(); i++) {
+			if(label.compareTo(searchResults.get(i).getLabel())==0) {
+				id = searchResults.get(i).getUri();
+			}
+		}
+		
 		RecipeResponse response = service.getById(id);
-		List<Recipe> recipes = response.getHits();
+		List<OopsRecipe> oopsrecipes = response.getHits();
+		List<Recipe> recipes = new ArrayList<>();
+		
+		for(OopsRecipe oops : oopsrecipes) {
+			recipes.add(oops.getRecipe());
+		}
 		
 		Recipe recipe = recipes.get(0);
 		

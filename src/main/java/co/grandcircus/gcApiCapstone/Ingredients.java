@@ -2,6 +2,9 @@ package co.grandcircus.gcApiCapstone;
 
 public class Ingredients {
 	private String text;
+	public Ingredients() {
+		
+	}
 
 	public Ingredients(String text) {
 		this.text = text;
