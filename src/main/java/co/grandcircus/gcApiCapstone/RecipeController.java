@@ -22,49 +22,53 @@ public class RecipeController {
 	@GetMapping("/")
 	public String home(Model model) {
 		
-		List<String> dishtypes = new ArrayList<>();
+		List<String> diets = new ArrayList<>();
 		
-		dishtypes.add("Alcohol-cocktail");	
-		dishtypes.add("Biscuits and cookies");
-		dishtypes.add("Bread");
-		dishtypes.add("Cereals");
-		dishtypes.add("Condiments and sauces");
-		dishtypes.add("Drinks");
-		dishtypes.add("Desserts");
-		dishtypes.add("Egg");
-		dishtypes.add("Main course");
-		dishtypes.add("Omelet");
-		dishtypes.add("Pancake");
-		dishtypes.add("Preps");
-		dishtypes.add("Preserve");
-		dishtypes.add("Salad");
-		dishtypes.add("Sandwiches");
-		dishtypes.add("Soup");
-		dishtypes.add("Starter");
-		
-		model.addAttribute("dishtypes",dishtypes);
-		
-		List<String> cuisinetypes = new ArrayList<>();
-		cuisinetypes.add("American");
-		cuisinetypes.add("Asian");
-		cuisinetypes.add("British");
-		cuisinetypes.add("Caribbean");
-		cuisinetypes.add("Central Europe");
-		cuisinetypes.add("Chinese");
-		cuisinetypes.add("Eastern Europe");
-		cuisinetypes.add("French");
-		cuisinetypes.add("Indian");
-		cuisinetypes.add("Italian");
-		cuisinetypes.add("Japanese");
-		cuisinetypes.add("Kosher");
-		cuisinetypes.add("Mediterranean");
-		cuisinetypes.add("Mexican");
-		cuisinetypes.add("Middle Eastern");
-		cuisinetypes.add("Nordic");
-		cuisinetypes.add("South American");
-		cuisinetypes.add("South East Asian");
+		diets.add("Balanced");	
+		diets.add("High-Fiber");
+		diets.add("High-Protein");
+		diets.add("Low-Carb");
+		diets.add("Low-Sodium");
+		diets.add("Low-Fat");
 
-		model.addAttribute("cuisinetypes",cuisinetypes);
+		
+		model.addAttribute("diets",diets);
+		
+		List<String> healths = new ArrayList<>();
+		healths.add("Alcohol-free");
+		healths.add("Immune-Supportive");
+		healths.add("Celery-free");
+		healths.add("Crustcean-free");
+		healths.add("Dairy");
+		healths.add("Eggs");
+		healths.add("Fish");
+		healths.add("FODMAP-free");
+		healths.add("Gluten");
+		healths.add("Keto");
+		healths.add("Kidney-friendly");
+		healths.add("Kosher");
+		healths.add("low-potassium");
+		healths.add("lupine-free");
+		healths.add("mustard-free");
+		healths.add("low-fat-abs");
+		healths.add("No-oil-added");
+		healths.add("low-sugar");
+		healths.add("paleo");
+		healths.add("peanut-free");
+		healths.add("pecatarian");
+		healths.add("pork-free");
+		healths.add("red-meat-free");
+		healths.add("sesame-free");
+		healths.add("shellfish-free");
+		healths.add("soy-free");
+		healths.add("sugar-conscious");
+		healths.add("tree-nut-free");
+		healths.add("vegan");
+		healths.add("vegetarian");
+		healths.add("wheat-free");
+
+
+		model.addAttribute("healths",healths);
 		
 		return "index";
 	}
@@ -73,7 +77,8 @@ public class RecipeController {
 	// SEARCHING
 	@PostMapping("/search/{q}")
 	public String searchByText(@PathVariable String q, Model model) {
-		List<Recipe> recipes = new ArrayList<>();//api service with api method for getting all recipes according to q;
+		RecipeResponse response = service.getAllRecipes(q);
+		List<Recipe> recipes = response.getHits();
 				
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", q);
@@ -81,42 +86,37 @@ public class RecipeController {
 		return "redirect:/results";
 	}
 	
-	@PostMapping("/search/dishtype/{dishtype}")
-	public String searchByDishType(@PathVariable String dishtype, Model model) {
-		List<Recipe> recipes = new ArrayList<>();//api service with api method for getting all recipes according to dishType;
+	@PostMapping("/search/diet/{diet}")
+	public String searchBydiet(@PathVariable String diet, Model model) {
+		RecipeResponse response = service.getDiet(diet);
+		List<Recipe> recipes = response.getHits();
+		
 		
 		model.addAttribute("recipes",recipes);
-		model.addAttribute("search", dishtype);
+		model.addAttribute("search", diet);
 		
 		return "redirect:/results";
 	}
 	
-	@PostMapping("/search/cuisinetype/{ cuisinetype }")
-	public String searchByCuisineType(@PathVariable String cuisinetype, Model model) {
-		List<Recipe> recipes = new ArrayList<>();//api service with api method for getting all recipes according to cuisinetype;
+	@PostMapping("/search/health/{ health }")
+	public String searchByhealth(@PathVariable String health, Model model) {
+		RecipeResponse response = service.getAllRecipes(health);
+		List<Recipe> recipes = response.getHits();
+
 		
 		model.addAttribute("recipes",recipes);
-		model.addAttribute("search", cuisinetype);
+		model.addAttribute("search", health);
 		
 		return "redirect:/results";
 	}
 	
-	@PostMapping("/search/calories/{ low }/{ high }")
-	public String searchByCuisineType(@PathVariable Double low,@PathVariable Double high, Model model) {
-		List<Recipe> recipes = new ArrayList<>();//api service with api method for getting all recipes according to cuisinetype;
-		
-		String search = low + "-" + high;
-		
-		model.addAttribute("recipes",recipes);
-		model.addAttribute("search", search);
-		
-		return "redirect:/results";
-	}
-	// END OF SEARCHING
 	
 	@GetMapping("/details/{ id }")
 	public String detailsById(@PathVariable String id, Model model) {
-		Recipe recipe = new Recipe();//api service with api method for getting all recipes according to id;
+		RecipeResponse response = service.getById(id);
+		List<Recipe> recipes = response.getHits();
+		
+		Recipe recipe = recipes.get(0);
 		
 		model.addAttribute("recipe",recipe);
 		
@@ -125,7 +125,11 @@ public class RecipeController {
 	
 	@PostMapping("/addfavorite/{ id }")
 	public String addToFavorites(@PathVariable String id, Model model) {
-		Recipe recipe = new Recipe();//api service with api method for getting all recipes according to id;
+		RecipeResponse response = service.getById(id);
+		List<Recipe> recipes = response.getHits();
+		
+		Recipe recipe = recipes.get(0);
+		
 		
 		favorites.add(recipe);
 		model.addAttribute("recipe",recipe);

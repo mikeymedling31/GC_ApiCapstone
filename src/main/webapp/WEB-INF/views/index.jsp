@@ -24,36 +24,28 @@ Text Search: <input type="text" name="q" />
 </form><br /><br />
 
 
-<form method="post" action="/search/dishtype/${ dishtype }" >
+<form method="post" action="/search/diet/${ diet }" >
 
-Search by Dish Type: 
-<select name="dishoptions">
-	<c:forEach var="dishtype" items="${ dishtypes }">
-		<option value="${ dishtype }">${ dishtype }</option>
+Search by Diet Label: 
+<select name="dietoptions">
+	<c:forEach var="diet" items="${ diets }">
+		<option value="${ diet }">${ diet }</option>
 	</c:forEach>
 </select>
 <input type="submit" />
 </form><br /><br />
 
-<form method="post" action="/search/cuisinetype/${ cuisinetype }" >
+<form method="post" action="/search/health/${ health }" >
 
-Search by Cuisine Type: 
-<select name="cuisineoptions">
-	<c:forEach var="dishtype" items="${ cuisinetypes }">
-		<option value="${ cuisinetype }">${ cuisinetype }</option>
+Search by Health label: 
+<select name="healthoptions">
+	<c:forEach var="health" items="${ healths }">
+		<option value="${ health }">${ health }</option>
 	</c:forEach>
 </select>
 <input type="submit" />
 </form><br /><br />
 
-<form method="post" action="/search/calories/${ low }/${ high }" >
-
-Search by Calorie Range: 
-Low: <input type="number" min=0 name="low" /> High: <input type="number" min=0 name="high" />
-
-
-<input type="submit" />
-</form><br /><br />
 
 
 

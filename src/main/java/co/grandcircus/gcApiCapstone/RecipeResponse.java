@@ -1,14 +1,16 @@
 package co.grandcircus.gcApiCapstone;
 
+import java.util.List;
+
 public class RecipeResponse {
 	
 	private String q;
-	private Recipe[] hits;
+	private List<Recipe> hits;
 	
 	public RecipeResponse() {
 		
 	}
-	public RecipeResponse(String q, Recipe[] hits) {
+	public RecipeResponse(String q, List<Recipe> hits) {
 		super();
 		this.q = q;
 		this.hits = hits;
@@ -19,10 +21,10 @@ public class RecipeResponse {
 	public void setQ(String q) {
 		this.q = q;
 	}
-	public Recipe[] getHits() {
+	public List<Recipe> getHits() {
 		return hits;
 	}
-	public void setHits(Recipe[] hits) {
+	public void setHits(List<Recipe> hits) {
 		this.hits = hits;
 	}
 
