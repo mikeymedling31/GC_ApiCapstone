@@ -5,7 +5,8 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class RecipeService {	
-	private RestTemplate restTemplate; 
+	private RestTemplate restTemplate = new RestTemplate(); 
+	
 	public RecipeResponse getById(String r) {
 		RecipeResponse getR = restTemplate.getForObject("https://api.edamam.com/search?r=" + r + "&app_id=96217916&app_key=275ea784f3be2a0c355959c3d3512b41", RecipeResponse.class);		
 		return getR;

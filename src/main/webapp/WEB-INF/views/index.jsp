@@ -16,7 +16,7 @@
 
 <h2>Recipe Search</h2>
 
-<form method="post" action="/search/${ q }">
+<form method="post" action="/search">
 
 Text Search: <input type="text" name="q" />
 
@@ -24,7 +24,7 @@ Text Search: <input type="text" name="q" />
 </form><br /><br />
 
 
-<form method="post" action="/search/diet/${ diet }" >
+<form method="post" action="/search/diet" >
 
 Search by Diet Label: 
 <select name="dietoptions">
@@ -35,7 +35,7 @@ Search by Diet Label:
 <input type="submit" />
 </form><br /><br />
 
-<form method="post" action="/search/health/${ health }" >
+<form method="post" action="/search/health" >
 
 Search by Health label: 
 <select name="healthoptions">

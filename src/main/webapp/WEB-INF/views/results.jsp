@@ -16,7 +16,7 @@ You searched for: ${ search }, here are the top ten results:
 
 <ul><c:forEach var="recipe" items="${ recipes }">
 
-	<li>${ recipe.label } <a href="/details/${ recipe.id }">View Recipe Details</a></li>
+	<li>${ recipe.label } <a href="/details/${ recipe.uri }">View Recipe Details</a></li>
 
 </c:forEach></ul>
 

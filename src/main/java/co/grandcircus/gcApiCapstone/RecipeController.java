@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RecipeController {
@@ -75,19 +76,19 @@ public class RecipeController {
 	
 	
 	// SEARCHING
-	@PostMapping("/search/{q}")
-	public String searchByText(@PathVariable String q, Model model) {
+	@PostMapping("/search")
+	public String searchByText(@RequestParam String q, Model model) {
 		RecipeResponse response = service.getAllRecipes(q);
 		List<Recipe> recipes = response.getHits();
 				
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", q);
 		
-		return "redirect:/results";
+		return "results";
 	}
 	
-	@PostMapping("/search/diet/{diet}")
-	public String searchBydiet(@PathVariable String diet, Model model) {
+	@PostMapping("/search/diet")
+	public String searchBydiet(@RequestParam String diet, Model model) {
 		RecipeResponse response = service.getDiet(diet);
 		List<Recipe> recipes = response.getHits();
 		
@@ -95,11 +96,11 @@ public class RecipeController {
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", diet);
 		
-		return "redirect:/results";
+		return "results";
 	}
 	
-	@PostMapping("/search/health/{ health }")
-	public String searchByhealth(@PathVariable String health, Model model) {
+	@PostMapping("/search/health")
+	public String searchByhealth(@RequestParam String health, Model model) {
 		RecipeResponse response = service.getAllRecipes(health);
 		List<Recipe> recipes = response.getHits();
 
@@ -107,8 +108,9 @@ public class RecipeController {
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", health);
 		
-		return "redirect:/results";
+		return "results";
 	}
+	
 	
 	
 	@GetMapping("/details/{ id }")
