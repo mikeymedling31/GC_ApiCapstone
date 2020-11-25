@@ -8,21 +8,19 @@ public class Recipe {
 	private String label;
 	private Integer yeild;
 	private Integer totalTime;
-	private Double calories;
 	private ArrayList<Ingredients> ingredients;
 	
 	public Recipe () {
 		
 	}
 	
-	public Recipe(String uri, String label, Integer yeild, Integer totalTime, Double calories,
+	public Recipe(String uri, String label, Integer yeild, Integer totalTime,
 			ArrayList<Ingredients> ingredients) {
 		super();
 		this.uri = uri;
 		this.label = label;
 		this.yeild = yeild;
 		this.totalTime = totalTime;
-		this.calories = calories;
 		this.ingredients = ingredients;
 	}
 
@@ -56,14 +54,6 @@ public class Recipe {
 
 	public void setTotalTime(Integer totalTime) {
 		this.totalTime = totalTime;
-	}
-
-	public Double getCalories() {
-		return calories;
-	}
-
-	public void setCalories(Double calories) {
-		this.calories = calories;
 	}
 
 	public ArrayList<Ingredients> getIngredients() {
