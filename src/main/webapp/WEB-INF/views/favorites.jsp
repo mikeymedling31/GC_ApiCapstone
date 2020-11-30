@@ -13,10 +13,17 @@
 
 <h1> Your Recipe Book: </h1>
 
-<c:forEach var="favorite" items="${ favorites }">
+<ul> 
+<c:forEach var="favorite" items="${ favorites }">  
+<li> $ { favorite.label }
+<a href="/details" ${ favorite.id }class="button">See Recipe Details</a> 
+<a href="/deleterecipe" ${ favorite.id }class="button">Delete This Recipe</a> 
+</li>
 		</c:forEach>
+		</ul>
 		
-<a href="/deleterecipe" class="button">Delete This Recipe</a> 
+
+
 
 </body>
 </html>
