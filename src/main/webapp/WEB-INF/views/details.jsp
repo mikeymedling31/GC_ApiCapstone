@@ -13,13 +13,11 @@
 	<H1>${ recipe.label}</H1>
 	
 	<p>
-<<<<<<< HEAD
 		Servicing size ${ recipe.yield }
 		Prep time ${ recipe.totalTime }
-=======
+		
 		Servicing size ${ recipe.yield } people<br />
 		Prep time ${ recipe.totalTime } minutes
->>>>>>> 0c255df4a08f1e27a9c1f349db4737596c27c566
 	</p>
 	
 	<ul>
