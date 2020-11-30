@@ -16,7 +16,7 @@
 		Servicing size ${ recipe.yield } people<br />
 		Prep time ${ recipe.totalTime } minutes<br />
 		<form method="post" action="/addfavorite">
-			<input type="hidden" name="label" value="${ recipe.label }" / >
+			<input type="hidden" name="label" value="${ recipe.label }" />
 			<input type="submit" value="Add to cookbook"/>
 		</form>
 	</p>

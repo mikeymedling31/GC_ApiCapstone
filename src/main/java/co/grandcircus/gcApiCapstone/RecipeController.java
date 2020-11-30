@@ -10,8 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RecipeController {
-	private List<Recipe> searchResults = new ArrayList<>();
+	
 	private List<Recipe> favorites = new ArrayList<>();
+	
+	@Autowired
+	private FavoriteRecipeRepository fav_repo;
+	
+	@Autowired
+	private RecipeIngredientsRepository ing_repo;
+	
+	@Autowired
+	private RecipeSearchResultsRepository results_repo;
 	
 	@Autowired
 	private RecipeService service;
@@ -50,12 +59,45 @@ public class RecipeController {
 		List<OopsRecipe> oopsrecipes = response.getHits();
 		List<Recipe> recipes = new ArrayList<>();
 		
+		Recipe recipe = new Recipe();
+		
+		List<Ingredients> ingredients = new ArrayList<>();
+		
+		ing_repo.deleteAll();
+		results_repo.deleteAll();
+		
 		for(OopsRecipe oops : oopsrecipes) {
-			recipes.add(oops.getRecipe());
+			recipe = oops.getRecipe();
+			
+			recipes.add(recipe);
+			
+			RecipeSearchResults searchresults = new RecipeSearchResults();
+			
+			searchresults.setLabel(recipe.getLabel());
+			searchresults.setUri(recipe.getUri());
+			searchresults.setYeild(recipe.getyield());
+			searchresults.setTotaltime(recipe.getTotalTime());
+			searchresults.setUrl(recipe.getUrl());
+			
+			results_repo.save(searchresults);
+			
+			ingredients = recipe.getIngredients();
+			
+			for(Ingredients ingredient : ingredients) {
+				
+				RecipeIngredients recipeingredients = new RecipeIngredients();
+				
+				recipeingredients.setText(ingredient.getText());
+				recipeingredients.setSearchresult(searchresults);
+				
+				ing_repo.save(recipeingredients);
+				
+			}
+			
+			results_repo.save(searchresults);
+			
 		}
 		
-		searchResults.clear();
-		searchResults.addAll(recipes);
 		
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", q);
@@ -69,12 +111,46 @@ public class RecipeController {
 		List<OopsRecipe> oopsrecipes = response.getHits();
 		List<Recipe> recipes = new ArrayList<>();
 		
+		Recipe recipe = new Recipe();
+		
+		List<Ingredients> ingredients = new ArrayList<>();
+		
+		ing_repo.deleteAll();
+		results_repo.deleteAll();
+		
 		for(OopsRecipe oops : oopsrecipes) {
-			recipes.add(oops.getRecipe());
+			recipe = oops.getRecipe();
+			
+			recipes.add(recipe);
+			
+			RecipeSearchResults searchresults = new RecipeSearchResults();
+			
+			searchresults.setLabel(recipe.getLabel());
+			searchresults.setUri(recipe.getUri());
+			searchresults.setYeild(recipe.getyield());
+			searchresults.setTotaltime(recipe.getTotalTime());
+			searchresults.setUrl(recipe.getUrl());
+			
+			results_repo.save(searchresults);
+			
+			ingredients = recipe.getIngredients();
+			
+			for(Ingredients ingredient : ingredients) {
+				
+				RecipeIngredients recipeingredients = new RecipeIngredients();
+				
+				recipeingredients.setText(ingredient.getText());
+				recipeingredients.setSearchresult(searchresults);
+				
+				ing_repo.save(recipeingredients);
+				
+			}
+			
+			results_repo.save(searchresults);
+			
 		}
 		
-		searchResults.clear();
-		searchResults.addAll(recipes);
+
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", dietoption);
 		
@@ -87,12 +163,46 @@ public class RecipeController {
 		List<OopsRecipe> oopsrecipes = response.getHits();
 		List<Recipe> recipes = new ArrayList<>();
 		
+		Recipe recipe = new Recipe();
+		
+		List<Ingredients> ingredients = new ArrayList<>();
+		
+		ing_repo.deleteAll();
+		results_repo.deleteAll();
+		
 		for(OopsRecipe oops : oopsrecipes) {
-			recipes.add(oops.getRecipe());
+			recipe = oops.getRecipe();
+			
+			recipes.add(recipe);
+			
+			RecipeSearchResults searchresults = new RecipeSearchResults();
+			
+			searchresults.setLabel(recipe.getLabel());
+			searchresults.setUri(recipe.getUri());
+			searchresults.setYeild(recipe.getyield());
+			searchresults.setTotaltime(recipe.getTotalTime());
+			searchresults.setUrl(recipe.getUrl());
+			
+			results_repo.save(searchresults);
+			
+			ingredients = recipe.getIngredients();
+			
+			for(Ingredients ingredient : ingredients) {
+				
+				RecipeIngredients recipeingredients = new RecipeIngredients();
+				
+				recipeingredients.setText(ingredient.getText());
+				recipeingredients.setSearchresult(searchresults);
+				
+				ing_repo.save(recipeingredients);
+				
+			}
+			
+			results_repo.save(searchresults);
+			
 		}
 
-		searchResults.clear();
-		searchResults.addAll(recipes);
+		
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", healthoption);
 		
@@ -102,17 +212,62 @@ public class RecipeController {
 	
 	
 	@PostMapping("/details")
-	public String detailsById(@RequestParam String label, Model model) {
-		String id = "";
+	public String detailsBylabel(@RequestParam String label, Model model) {
+		
+		RecipeSearchResults result = new RecipeSearchResults();
+		List<RecipeIngredients> recingr = new ArrayList<>();
+		List<Ingredients> ingredients = new ArrayList<>();
+		
+		
+		result = results_repo.findByLabel(label);
+		recingr = ing_repo.findAllBySearchresults(result);
 		
 		Recipe recipe = new Recipe();
 		
-		for(int i = 0; i<searchResults.size(); i++) {
-			if(label.compareTo(searchResults.get(i).getLabel())==0) {
-				recipe = searchResults.get(i);
-			}
+		recipe.setLabel(result.getLabel());
+		recipe.setTotalTime(result.getTotaltime());
+		recipe.setUri(result.getUri());
+		recipe.setUrl(result.getUrl());
+
+		
+		for(RecipeIngredients ing : recingr) {
+			Ingredients ingredient = new Ingredients();
+			ingredient.setText(ing.getText());
+			ingredients.add(ingredient);
 		}
-		System.out.println(id);		
+		
+		recipe.setIngredients(ingredients);
+
+		model.addAttribute("recipe",recipe);
+		
+		return "details";
+	}
+	@GetMapping("/details/{id}")
+	public String detailsById(@PathVariable Long id, Model model) {
+		
+		RecipeSearchResults result = new RecipeSearchResults();
+		List<RecipeIngredients> recingr = new ArrayList<>();
+		List<Ingredients> ingredients = new ArrayList<>();
+		
+		
+		result = results_repo.findById(id).orElse(null);
+		recingr = ing_repo.findAllBySearchresults(result);
+		
+		Recipe recipe = new Recipe();
+		
+		recipe.setLabel(result.getLabel());
+		recipe.setTotalTime(result.getTotaltime());
+		recipe.setUri(result.getUri());
+		recipe.setUrl(result.getUrl());
+
+		
+		for(RecipeIngredients ing : recingr) {
+			Ingredients ingredient = new Ingredients();
+			ingredient.setText(ing.getText());
+			ingredients.add(ingredient);
+		}
+		
+		recipe.setIngredients(ingredients);
 
 		model.addAttribute("recipe",recipe);
 		
@@ -121,28 +276,80 @@ public class RecipeController {
 	
 	@PostMapping("/addfavorite")
 	public String addToFavorites(@RequestParam String label, Model model) {
-		String id = "";
-		Recipe recipe = new Recipe();
 		
-		for(int i = 0; i<searchResults.size(); i++) {
-			if(label.compareTo(searchResults.get(i).getLabel())==0) {
-				recipe = searchResults.get(i);
-			}
+		List<RecipeIngredients> ingredients = new ArrayList<>();
+		
+		RecipeSearchResults recipe = new RecipeSearchResults();
+		 
+				recipe = results_repo.findByLabel(label);
+				
+				FavoriteRecipe searchresults = new FavoriteRecipe();
+				
+				searchresults.setLabel(recipe.getLabel());
+				searchresults.setUri(recipe.getUri());
+				searchresults.setYeild(recipe.getYeild());
+				searchresults.setTotaltime(recipe.getTotaltime());
+				
+				ingredients = ing_repo.findAllBySearchresults(recipe);
+				fav_repo.save(searchresults);
+				
+		for(RecipeIngredients ingredient : ingredients) {
+					
+					ingredient.setFavoriterecipe(searchresults);
+					
+					ing_repo.save(ingredient);
+					
+				}
+				
+		fav_repo.save(searchresults);
+		
+		RecipeSearchResults result = new RecipeSearchResults();
+		List<RecipeIngredients> recingr = new ArrayList<>();
+		List<Ingredients> ings = new ArrayList<>();
+		Ingredients ingredient = new Ingredients();
+		
+		result = results_repo.findByLabel(label);
+		recingr = ing_repo.findAllBySearchresults(result);
+		
+		Recipe rec = new Recipe();
+		
+		rec.setLabel(result.getLabel());
+		rec.setTotalTime(result.getTotaltime());
+		rec.setUri(result.getUri());
+		rec.setUrl(result.getUrl());
+		
+		for(RecipeIngredients ing : recingr) {
+			ingredient.setText(ing.getText());
+			ings.add(ingredient);
 		}
 		
+		rec.setIngredients(ings);
+
+		model.addAttribute("recipe",rec);
 		
-		favorites.add(recipe);
-		model.addAttribute("recipe",recipe);
-		
-		return "redirect:/details/{id}";
+		return "redirect:/details/"+result.getResult_id();
 	}
 	
 	@GetMapping("/favorites")
 	public String favorites(Model model) {
 		
+		List<FavoriteRecipe> favorites = fav_repo.findAll();
+				
 		model.addAttribute("favorites",favorites);
 		return "favorites";
 		
+	}
+	
+	@GetMapping("/deleterecipe/{id}")
+	public String deleteFavorite(@PathVariable Long id, Model model) {
+		
+		fav_repo.deleteById(id);
+		
+		List<FavoriteRecipe> favorites = fav_repo.findAll();
+		
+		model.addAttribute("favorites",favorites);
+		
+		return "redirect:/favorites";
 	}
 	
 	
