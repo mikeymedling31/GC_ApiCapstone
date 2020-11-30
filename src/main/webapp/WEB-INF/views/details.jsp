@@ -12,28 +12,41 @@
     height: 100%;
 }
 
-/* The hero image */
 .hero-image {
-  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
- 
-  /* Set a specific height */
   height: 50%; 
   border-color: #F7421B;
   border-style: solid;
 }
 
-/* Place text in the middle of the image */
 .hero-text {
   text-align: left;
   position: absolute;
   left: 10%;
-  
-
+  font-weight: bold;
   color: Black;
 }
 
 .image {
 	padding-left: 50%;
+}
+
+.button{
+	font-weight: bold;
+	color: white;
+	background-color: #F7421B;	
+}
+
+.link {
+  font: bold;
+  text-decoration: none;
+  background-color: #F7421B;
+  color: white;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
 }
 </style>
 </head>
@@ -46,9 +59,9 @@
 			<p>
 				Servicing size ${ recipe.yield } people<br />
 				Prep time ${ recipe.totalTime } minutes<br />
-				<form method="post" action="/addfavorite">
+				<form method="post" action="/addfavorite" >
 					<input type="hidden" name="label" value="${ recipe.label }" />
-					<input type="submit" value="Add to cookbook"/>
+					<input type="submit" class="button" value="Add to cookbook"/>
 				</form>
 			</p>
 			
@@ -57,9 +70,9 @@
 				<li>${ ingredients.getText() }</li>
 				</c:forEach>
 			</ul>
-			<a href="${ recipe.url }">More Details</a><br /> 
+			<a href="${ recipe.url }" class="link">More Details</a><br /> <br /> 
 			
-			<a href="/">Search again</a>
+			<a href="/" class="link">Search again</a>
 	 	</div>
 	 	<div class= "image">
 	 		<img src="https://st3.depositphotos.com/10638998/16262/i/600/depositphotos_162620250-stock-photo-chef-showing-okay-sign.jpg" width="auto" height="auto">
