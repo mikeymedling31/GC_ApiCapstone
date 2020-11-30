@@ -9,7 +9,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
+
+<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.HpLqcyoP2QTxgG6jC4DUkwHaHa%26pid%3DApi&f=1
+" alt="Favorite Family Recipes" width="300" height="300">
 
 <h1> Your Recipe Book: </h1>
 
