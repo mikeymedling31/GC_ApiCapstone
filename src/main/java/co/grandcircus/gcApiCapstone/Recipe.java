@@ -6,23 +6,41 @@ public class Recipe {
 
 	private String uri;
 	private String label;
-	private Integer yeild;
+	private Integer yield;
 	private Integer totalTime;
 	private ArrayList<Ingredients> ingredients;
+	private String url;
 	
 	public Recipe () {
 		
 	}
 	
-	public Recipe(String uri, String label, Integer yeild, Integer totalTime,
-			ArrayList<Ingredients> ingredients) {
+	
+
+	public Recipe(String uri, String label, Integer yield, Integer totalTime, ArrayList<Ingredients> ingredients,
+			String url) {
 		super();
 		this.uri = uri;
 		this.label = label;
-		this.yeild = yeild;
+		this.yield = yield;
 		this.totalTime = totalTime;
 		this.ingredients = ingredients;
+		this.url = url;
 	}
+
+
+
+	public String getUrl() {
+		return url;
+	}
+
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
 
 	public String getUri() {
 		return uri;
@@ -40,12 +58,12 @@ public class Recipe {
 		this.label = label;
 	}
 
-	public Integer getYeild() {
-		return yeild;
+	public Integer getyield() {
+		return yield;
 	}
 
-	public void setYeild(Integer yeild) {
-		this.yeild = yeild;
+	public void setyield(Integer yield) {
+		this.yield = yield;
 	}
 
 	public Integer getTotalTime() {
