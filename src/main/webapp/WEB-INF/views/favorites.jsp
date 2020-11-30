@@ -12,7 +12,7 @@
 
 <body>
 
-<img src="https://www.tasteandtellblog.com/wp-content/uploads/2013/07/Favorite-Family-Recipes-header.png" alt="Favorite Family Recipes" width="300" height="300">
+<img src="https://www.tasteandtellblog.com/wp-content/uploads/2013/07/Favorite-Family-Recipes-header.png" alt="Favorite Family Recipes" width="auto" height="auto">
 
 <h1> Your Recipe Book: </h1>
 
