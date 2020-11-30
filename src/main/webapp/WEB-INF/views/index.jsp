@@ -63,7 +63,6 @@
 </head>
 <body>
 
-
 	<div>
 		<div>
 			<img alt="" src="https://fwfarms.com/wp-content/uploads/2011/04/Recipe-Banner.jpg" class="banner">

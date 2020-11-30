@@ -28,20 +28,24 @@ public class RecipeController {
 		
 		List<String> diets = new ArrayList<>();
 		
+
 		diets.add("balanced");	
 		diets.add("low-carb");
 		diets.add("low-fat");
+
 
 		
 		model.addAttribute("diets",diets);
 		
 		List<String> healths = new ArrayList<>();
+
 		healths.add("alcohol-free");
 		healths.add("peanut-free");
 		healths.add("sugar-conscious");
 		healths.add("tree-nut-free");		
 		healths.add("vegan");
 		healths.add("vegetarian");
+
 
 		model.addAttribute("healths",healths);
 		
@@ -103,6 +107,7 @@ public class RecipeController {
 		return "results";
 	}
 	
+
 	@PostMapping("/search/diet")
 	public String searchBydiet(@RequestParam String dietoption, Model model) {
 		RecipeResponse response = service.getDiet(dietoption);
@@ -110,6 +115,7 @@ public class RecipeController {
 		List<Recipe> recipes = new ArrayList<>();
 		
 		Recipe recipe = new Recipe();
+
 		
 		List<Ingredients> ingredients = new ArrayList<>();
 		
@@ -150,11 +156,14 @@ public class RecipeController {
 		
 
 		model.addAttribute("recipes",recipes);
+
+
 		model.addAttribute("search", dietoption);
-		
+
 		return "results";
 	}
 	
+
 	@PostMapping("/search/health")
 	public String searchByhealth(@RequestParam String healthoption, Model model) {
 		RecipeResponse response = service.getAllRecipes(healthoption);
@@ -203,11 +212,12 @@ public class RecipeController {
 		
 		model.addAttribute("recipes",recipes);
 		model.addAttribute("search", healthoption);
+
 		
 		return "results";
 	}
 	
-	
+
 	
 	@PostMapping("/details")
 	public String detailsBylabel(@RequestParam String label, Model model) {
@@ -242,6 +252,7 @@ public class RecipeController {
 	}
 	@GetMapping("/details/{id}")
 	public String detailsById(@PathVariable Long id, Model model) {
+
 		
 		RecipeSearchResults result = new RecipeSearchResults();
 		List<RecipeIngredients> recingr = new ArrayList<>();
