@@ -27,7 +27,7 @@ Text Search: <input type="text" name="q" />
 <form method="post" action="/search/diet" >
 
 Search by Diet Label: 
-<select name="dietoptions">
+<select name="dietoption">
 	<c:forEach var="diet" items="${ diets }">
 		<option value="${ diet }">${ diet }</option>
 	</c:forEach>
@@ -38,7 +38,7 @@ Search by Diet Label:
 <form method="post" action="/search/health" >
 
 Search by Health label: 
-<select name="healthoptions">
+<select name="healthoption">
 	<c:forEach var="health" items="${ healths }">
 		<option value="${ health }">${ health }</option>
 	</c:forEach>
