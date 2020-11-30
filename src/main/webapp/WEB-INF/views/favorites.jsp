@@ -16,8 +16,8 @@
 <ul> 
 <c:forEach var="favorite" items="${ favorites }">  
 <li> ${ favorite.label }
-<a href="/details" ${ favorite.id }class="button">See Recipe Details</a> 
-<a href="/deleterecipe" ${ favorite.id }class="button">Delete This Recipe</a> 
+<a href="/details/${ favorite.id }" class="button">See Recipe Details</a> 
+<a href="/deleterecipe/${ favorite.id }" class="button">Delete This Recipe</a> 
 </li>
 		</c:forEach>
 		</ul>
