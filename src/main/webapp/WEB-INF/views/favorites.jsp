@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+    
 <!DOCTYPE html>
 <html>
 <head>
+<style> .button { font: bold 11px Arial; text-decoration: none; background-color: #EEEEEE; color: #333333; padding: 2px 6px 2px 6px; border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC; } </style> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 
-// list of favs
-//link to each fav
-//button to remove fav
- -->
+
+<h1> Your Recipe Book: </h1>
+
+<c:forEach var="favorite" items="${ favorites }">
+		</c:forEach>
+		
+<a href="/deleterecipe" class="button">Delete This Recipe</a> 
 
 </body>
 </html>

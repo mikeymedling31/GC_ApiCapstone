@@ -13,7 +13,7 @@
 	<H1>${ recipe.label}</H1>
 	
 	<p>
-		Servicing size ${ recipe.yeild }
+		Servicing size ${ recipe.yield }
 		Prep time ${ recipe.totalTime }
 	</p>
 	
@@ -22,6 +22,8 @@
 		<li>${ ingredients }</li>
 		</c:forEach>
 	</ul>
+	
+	
 	
 </body>
 </html>
