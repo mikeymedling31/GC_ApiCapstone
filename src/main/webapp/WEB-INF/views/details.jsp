@@ -13,20 +13,11 @@
 	<H1>${ recipe.label}</H1>
 	
 	<p>
-<<<<<<< HEAD
 		Servicing size ${ recipe.yield } people<br />
 		Prep time ${ recipe.totalTime } minutes<br />
 		<form method="post" action="/addfavorite">
-			<input type="hidden" placeholder="${ recipe.url }" />
 			<input type="submit" value="Add to cookbook" />
 		</form>
-=======
-		Servicing size ${ recipe.yield }
-		Prep time ${ recipe.totalTime }
-		
-		Servicing size ${ recipe.yield } people<br />
-		Prep time ${ recipe.totalTime } minutes
->>>>>>> 04976a4c4c77b610b3d7e1a4ffd4c54c6860035c
 	</p>
 	
 	<ul>
