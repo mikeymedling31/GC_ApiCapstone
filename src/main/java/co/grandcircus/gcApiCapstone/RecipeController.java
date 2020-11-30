@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RecipeController {
 	
-	private List<Recipe> favorites = new ArrayList<>();
-	
 	@Autowired
 	private FavoriteRecipeRepository fav_repo;
 	
