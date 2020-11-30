@@ -1,6 +1,6 @@
 package co.grandcircus.gcApiCapstone;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Recipe {
 
@@ -8,7 +8,7 @@ public class Recipe {
 	private String label;
 	private Integer yield;
 	private Integer totalTime;
-	private ArrayList<Ingredients> ingredients;
+	private List<Ingredients> ingredients;
 	private String url;
 	
 	public Recipe () {
@@ -17,7 +17,7 @@ public class Recipe {
 	
 	
 
-	public Recipe(String uri, String label, Integer yield, Integer totalTime, ArrayList<Ingredients> ingredients,
+	public Recipe(String uri, String label, Integer yield, Integer totalTime, List<Ingredients> ingredients,
 			String url) {
 		super();
 		this.uri = uri;
@@ -74,11 +74,11 @@ public class Recipe {
 		this.totalTime = totalTime;
 	}
 
-	public ArrayList<Ingredients> getIngredients() {
+	public List<Ingredients> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(ArrayList<Ingredients> ingredients) {
+	public void setIngredients(List<Ingredients> ingredients) {
 		this.ingredients = ingredients;
 	}
 
