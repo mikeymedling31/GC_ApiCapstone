@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RecipeController {
 	
-	private List<Recipe> favorites = new ArrayList<>();
-	
 	@Autowired
 	private FavoriteRecipeRepository fav_repo;
 	
@@ -289,6 +287,7 @@ public class RecipeController {
 				searchresults.setUri(recipe.getUri());
 				searchresults.setYeild(recipe.getYeild());
 				searchresults.setTotaltime(recipe.getTotaltime());
+				searchresults.setUrl(recipe.getUrl());
 				
 				ingredients = ing_repo.findAllBySearchresults(recipe);
 				fav_repo.save(searchresults);
